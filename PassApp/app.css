@@ -1,0 +1,7 @@
+﻿.help-block {
+    font-size: 12px;
+}
+.panel-default > .panel-heading-custom {
+    background: #181818 ;
+    color: #888888;
+}

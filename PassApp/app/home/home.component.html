@@ -1,0 +1,70 @@
+﻿ <div>
+     <div class="container">
+        <div *ngFor="let d of data" class="col-md-4" >
+            <div class="panel panel-default">
+                <div class="panel-heading panel-heading-custom">
+                    <h3 class="panel-title">{{d.name}}</h3>
+                </div>
+                <div class="panel-body">
+                    <a href="https://{{d.url}}" class="btn btn-primary"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></a>
+                    <a (click)="deleteData(d)" class="btn btn-primary"><span class="glyphicon glyphicon-fire" aria-hidden="true"></span></a>
+                    <a (click)="editData(d)" class="btn btn-primary"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                    <a (click)="showData(d)" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+                </div>
+            </div>
+        </div>
+     </div>
+
+     <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+     <div *ngIf="message" class="alert alert-info">{{message}}</div>
+
+     <div *ngIf="isEdit" class="panel panel-default">
+         <div class="panel-heading panel-heading-custom">
+             <h3 class="panel-title">Edit</h3>
+         </div>
+         <div class="panel-body">
+             <form name="editForm" (ngSubmit)="f.form.valid && updateAction()" #f="ngForm" novalidate>
+                 <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
+                     <label for="name">name</label>
+                     <input type="text" class="form-control" name="name" [(ngModel)]="dataEdited.name" #name="ngModel" required />
+                     <div *ngIf="f.submitted && !name.valid" class="help-block">Username is required</div>
+                 </div>
+                 <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !url.valid }">
+                     <label for="url">Url</label>
+                     <input type="text" class="form-control" name="url" [(ngModel)]="dataEdited.url" #url="ngModel" required />
+                     <div *ngIf="f.submitted && !url.valid" class="help-block">Password is required</div>
+                 </div>
+                 <div class="form-group">
+                     <button type="submit" class="btn btn-primary">Save</button> <button (click)="close()" class="btn btn-primary">Close</button>
+                 </div>
+             </form>
+         </div>
+     </div>
+     <div bsModal #showModal="bs-modal" class="modal fade" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="showLabel" aria-hidden="true">
+         <div class="modal-dialog modal-sm">
+             <div class="modal-content">
+                 <div class="modal-header">
+                     <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+                         <span aria-hidden="true">&times;</span>
+                     </button>
+                     <h4 class="modal-title">Show password</h4>
+                 </div>
+                 <div class="modal-body">
+                     <div *ngIf="!(model.login && model.password && model.url)">
+                        <label for="code">Enter your key</label>
+                         <div class="form-group">
+                            <input type="password" name="key" [(ngModel)]="model.key" #key="ngModel"/>
+                            <button class="btn btn-primary" (click)="showKey()"> Show </button>
+                         </div>
+                     </div>
+                     <div *ngIf="model.login && model.password && model.url">
+                         <p>Login: {{model.login}}</p>
+                         <p>Password: {{model.password}} </p>
+                         <a href="https://{{model.url}}" class="btn btn-primary"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></a>
+                     </div>
+                     <div *ngIf="modalError" class="alert alert-danger">{{modalError}}</div>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>

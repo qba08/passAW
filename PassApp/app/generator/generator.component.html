@@ -1,0 +1,41 @@
+﻿<div class="col-md-6 col-md-offset-3">
+    <h2>Generator</h2>
+        <div class="form-group">
+            <label>Generate on:</label>
+            <div>
+                <select class="selectpicker" name="source" [(ngModel)]="model.source" #source="ngModel" required>
+                    <option value="Browser">Browser</option>
+                    <option value="Serwer" >Serwer</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Length</label>
+            <input type="number" min="4" max="64" value="8" class="form-control" name="len" [(ngModel)]="model.len" #len="ngModel" required />
+            <div class="help-block">Lenght must be in (4,64) </div>
+        </div>
+        <div class="form-group">
+            <label>Alphabet</label>
+            <select class="selectpicker" name="alph" [(ngModel)]="model.alph" #alph="ngModel" required>
+                <option value="1">Number</option>
+                <option value="2">Lowercase </option>
+                <option value="3">Number + Lowercase</option>
+                <option value="4">Number + Lowercase + Uppercase</option>
+                <option value="5">Number + Lowercase + Uppercase + Symbol</option>
+            </select>
+            <div *ngIf="!alph.valid" class="help-block">Alphabet is required</div>
+        </div>
+        <div class="form-group">
+            <button (click)="len.valid && alph.valid && generatePass()" class="btn btn-primary">Generate</button>
+            <a [routerLink]="['/']" class="btn btn-primary">Cancel</a>
+        </div>
+    <div class="panel panel-default">
+        <div class="panel-heading panel-heading-custom">
+            <h3 class="panel-title">Your pass</h3>
+        </div>
+        <div class="panel-body">
+            <input type="text" class="form-control" name="pass" [(ngModel)]="model.pass" #pass="ngModel"/>
+        </div>
+    </div>
+    <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+</div>

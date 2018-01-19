@@ -1,0 +1,33 @@
+﻿<nav class="navbar navbar-inverse navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" routerLink="/">Pass App</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li *ngIf="checkSignIn()" ><a routerLink="/data"><span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span> Add</a></li>
+            <li *ngIf="checkSignIn()" ><a routerLink="/generator"><span class="glyphicon glyphicon-equalizer" aria-hidden="true"></span> Generate</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li *ngIf="!checkSignIn()" ><a routerLink="/register"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Sign up</a></li>
+            <li *ngIf="checkSignIn()" ><a routerLink="/key" ><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Get Key</a></li>
+            <li *ngIf="checkSignIn()" ><a routerLink="/login" (click)="logout()"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="jumbotron">
+    <div class="container">
+        <div class="col-sm-8 col-sm-offset-2">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
+
+<!-- credits -->
+<div class="text-center">
+    <p>
+        <a href="" target="_top">PassApp</a>
+    </p>
+    <p>
+        <a href="" target="_top">Jakub Hutko</a>
+    </p>
+</div>

@@ -1,0 +1,37 @@
+﻿<div class="col-md-6 col-md-offset-3">
+    <h2>Key recover</h2>
+    <form name="keyForm" (ngSubmit)="f.form.valid && getAction()" #f="ngForm" novalidate>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !code.valid }">
+            <label for="code">Code:</label>
+            <input type="text" class="form-control" name="code" [(ngModel)]="model.code" #code="ngModel" required />
+            <div *ngIf="f.submitted && !code.valid" class="help-block">Code is required</div>
+        </div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !civilID.valid }">
+            <label for="civilID">Civil ID</label>
+            <input type="password" class="form-control" name="civilID" [(ngModel)]="model.civilID" #civilID="ngModel" required />
+            <div class="help-block">Civil ID is used to decrypt key</div>
+            <div *ngIf="f.submitted && !civilID.valid" class="help-block">Civil ID is required</div>
+        </div>
+        <div class="form-group">
+            <button [disabled]="loading" type="submit" class="btn btn-primary">Show</button>
+            <a [routerLink]="['/']" class="btn btn-link">Cancel</a>
+        </div>
+    </form>
+    <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+
+    <div bsModal #showModal="bs-modal" class="modal fade" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="showLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Show key</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Key: {{model.key}} </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
